@@ -125,12 +125,14 @@ create table treino_aluno
   observacao varchar(200),
   id_func int not null,
   id_aluno int not null,
+  id_treino int not null,
   criado_por VARCHAR(50) NOT NULL DEFAULT current_user,
   criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atualizado_por varchar(50) null,
   atualizado_em TIMESTAMP NULL,
   foreign key (id_func) references funcionario (id_func),
-  foreign key (id_aluno) references aluno (id_aluno)
+  foreign key (id_aluno) references aluno (id_aluno),
+  foreign key (id_treino) references treino (id_treino)
 );
 
 
