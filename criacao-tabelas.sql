@@ -32,7 +32,7 @@ create table  metodo_pagamento
    telefone varchar(50),
    email varchar(50),
    dt_nasc date not null,
-   genero CHAR NOT NULL CHECK (genero IN ('M', 'F', 'O'))
+   genero CHAR NOT NULL CHECK (genero IN ('M', 'F', 'O')),
    dt_cadastro date not null,
    endereco varchar(100),
    criado_por VARCHAR(50) NOT NULL DEFAULT current_user,
@@ -125,21 +125,19 @@ create table treino_aluno
   observacao varchar(200),
   id_func int not null,
   id_aluno int not null,
-  id_treino int not null,
   criado_por VARCHAR(50) NOT NULL DEFAULT current_user,
   criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atualizado_por varchar(50) null,
   atualizado_em TIMESTAMP NULL,
   foreign key (id_func) references funcionario (id_func),
-  foreign key (id_aluno) references aluno (id_aluno),
-  foreign key (id_treino) references treino (id_treino)
+  foreign key (id_aluno) references aluno (id_aluno)
 );
 
 
 
 
 
-– matricula
+-- matricula
 CREATE TABLE matricula (
   id_matricula SERIAL PRIMARY KEY,
   id_aluno INT NOT NULL,
@@ -159,6 +157,5 @@ CREATE TABLE matricula (
   FOREIGN KEY (id_met_pag) REFERENCES metodo_pagamento(id_met_pag),
   FOREIGN KEY (id_atendente) REFERENCES funcionario(id_func)
 );
-
 
 
