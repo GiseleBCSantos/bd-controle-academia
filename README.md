@@ -12,10 +12,10 @@ Este repositório contém os **scripts SQL de criação de tabelas, funções e 
 - [x] Criação de funções de validação (`PL/pgSQL`)
 - [x] Criação de triggers para validação automática (`INSERT`, `UPDATE`)
 - [x] Inclusão de campos de auditoria (`criado_por`, `criado_em`, etc.)
+- [x] Criar funções para inserção manual de dados (procedures)
 
 ### A Fazer
 
-- [ ] Criar funções para inserção manual de dados (procedures)
 - [ ] Criar funções de atualização e exclusão (UPDATE/DELETE seguras)
 - [ ] Criar usuários e roles com permissões restritas
 - [ ] Criar views para relatórios e simplificação de consultas
