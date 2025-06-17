@@ -18,14 +18,9 @@
 - [x] Treinos por objetivo
 
 ## 👨‍🏫 Funcionários
-- [ ] Funcionários ativos por cargo
-- [ ] Carga horária dos funcionários
-- [ ] Funcionários aniversariantes do mês
-
-## 🧰 Equipamentos
-- [ ] Equipamentos disponíveis
-- [ ] Equipamentos por data de aquisição
-- [ ] Equipamentos em uso
+- [x] Funcionários ativos por cargo
+- [x] Carga horária dos funcionários
+- [x] Funcionários aniversariantes do mês
 
 ## 💰 Relatórios Gerenciais
 - [ ] Receita mensal da academia
@@ -33,6 +28,6 @@
 - [ ] Média de valor pago por matrícula
 
 ## 🔍 Auditoria e Monitoramento
-- [ ] Últimas atualizações em cada tabela
-- [ ] Usuários que mais realizaram inserções/atualizações
-- [ ] Registros excluídos logicamente recentemente
+- [x] Últimas atualizações em cada tabela
+- [x] Usuários que mais realizaram inserções/atualizações
+- [x] Registros excluídos logicamente recentemente
