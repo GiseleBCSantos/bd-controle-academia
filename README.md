@@ -15,12 +15,11 @@ Este repositório contém os **scripts SQL de criação de tabelas, funções e 
 - [x] Criar funções para inserção manual de dados (procedures)
 - [x] Criar funções de atualização e exclusão (UPDATE/DELETE seguras) 
     - [x] Impedir deletes diretos, permitindo apenas softs delets (taca trigger akakak)
+- [x] Criar views para relatórios e simplificação de consultas
 
 ### A Fazer
 
 - [ ] Criar usuários e roles com permissões restritas
-- [ ] Criar views para relatórios e simplificação de consultas
-- [ ] Adicionar constraints de integridade referencial entre tabelas
 - [ ] Inserir dados de exemplo para testes
 - [ ] Script de criação completo e automatizado (`init.sql`)
 - [ ] Adicionar documentação SQL inline nos arquivos
@@ -51,7 +50,7 @@ Este repositório contém os **scripts SQL de criação de tabelas, funções e 
 
 **Gisele Santos**  
 Desenvolvedora Full-Stack • Estudante de Análise e Desenvolvimento de Sistemas  
-[LinkedIn](https://www.linkedin.com/in/gisele-santos-dev/) <!-- substitua pelo seu link real -->
+[LinkedIn](https://www.linkedin.com/in/gisele-santos-dev/)
 
 ---
 
