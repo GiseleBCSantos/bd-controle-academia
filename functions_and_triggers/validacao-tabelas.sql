@@ -63,31 +63,34 @@
  
 
 -- trigger para validacao de aluno 
- 
- create or replace function func_valida_aluno()
- returns trigger as $$
- begin 
- 	if trim(new.nome) = '' THEN
-    	raise exception 'O campo "nome" não pode estar vazio';
+create or replace function func_valida_aluno()
+returns trigger as $$
+begin 
+    if new.nome is null or trim(new.nome) = '' then
+        raise exception 'O campo "nome" não pode estar vazio';
     end if;
-    if new.dt_nasc is NULL THEN
-    	raise EXCEPTION 'O campo "data de nascimento" não pode estar vazio';
+
+    if new.dt_nasc is null then
+        raise exception 'O campo "data de nascimento" não pode estar vazio';
     end if;
-    if new.genero is NULL THEN
-    	raise EXCEPTION 'O campo "genero" não pode estar vazio';
+
+    if new.genero is null or trim(new.genero) = '' then
+        raise exception 'O campo "genero" não pode estar vazio';
     end if;
-    if (tg_op = 'update') THEN
-    	new.atualizado_em := CURRENT_TIMESTAMP;
-        new.atualizado_por := CURRENT_USER;
+
+    if tg_op = 'update' then
+        new.atualizado_em := current_timestamp;
+        new.atualizado_por := current_user;
     end if;
-    if (tg_op = 'insert') THEN
-    	new.dt_cadastro := CURRENT_TIMESTAMP;
+
+    if tg_op = 'insert' then
+        new.dt_cadastro := current_timestamp;
     end if;
 
     return new;
+end;
+$$ language plpgsql;
 
- end ;
- $$ language plpgsql; 
  
  create or replace trigger valida_aluno
  before insert or UPDATE on aluno
