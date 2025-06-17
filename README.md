@@ -16,10 +16,10 @@ Este repositório contém os **scripts SQL de criação de tabelas, funções e 
 
 ### A Fazer
 
-- [ ] Criar funções de atualização e exclusão (UPDATE/DELETE seguras) tentarei fazer hoje (17/06)
-- [ ] Impedir deletes diretos, permitindo apenas softs delets (taca trigger akakak)
+- [ ] Criar funções de atualização e exclusão (UPDATE/DELETE seguras) 
+    - [x] Impedir deletes diretos, permitindo apenas softs delets (taca trigger akakak)
 - [ ] Criar usuários e roles com permissões restritas
-- [ ] Criar views para relatórios e simplificação de consultas tentarei fazer hoje (17/06)
+- [ ] Criar views para relatórios e simplificação de consultas
 - [ ] Adicionar constraints de integridade referencial entre tabelas
 - [ ] Inserir dados de exemplo para testes
 - [ ] Script de criação completo e automatizado (`init.sql`)
