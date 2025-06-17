@@ -78,6 +78,22 @@ if new.genero is null or trim(new.genero) = '' then
     raise exception 'O campo "genero" não pode estar vazio';
 end if;
 
+if new.dt_nasc >= current_date then
+    raise exception 'A data de nascimento deve ser anterior à data atual';
+end if;
+
+if age(current_date, new.dt_nasc).years < 10 then
+    raise exception 'O aluno deve ter pelo menos 10 anos de idade';
+end if;
+
+if not (new.genero in ('M', 'F', 'O')) then
+    raise exception 'O campo "genero" deve ser M, F ou O';
+end if;
+
+if tg_op = 'insert' and new.dt_cadastro < new.dt_nasc then
+    raise exception 'A data de cadastro não pode ser anterior à data de nascimento';
+end if;
+
 if tg_op = 'update' then
     new.atualizado_em := current_timestamp;
     new.atualizado_por := current_user;
@@ -115,15 +131,13 @@ end if;
 if trim(new.turno) = '' THEN
     raise exception 'O campo "turno" não pode estar vazio';
 end if;
-if trim(new.carga_horaria) is NULL THEN
+if (new.carga_horaria) is NULL THEN
     raise exception 'O campo "carga horaria" não pode estar vazio';
 end if;
-if trim(new.salario) is NULL THEN
+if (new.salario) is NULL THEN
     raise exception 'O campo "salario" não pode estar vazio';
 end if;
-if new.genero is NULL THEN
-    raise EXCEPTION 'O campo "genero" não pode estar vazio';
-end if;
+
 if (tg_op = 'update') THEN
     new.atualizado_em := CURRENT_TIMESTAMP;
     new.atualizado_por := CURRENT_USER;
