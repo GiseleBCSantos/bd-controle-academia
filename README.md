@@ -13,13 +13,16 @@ Este repositório contém os **scripts SQL de criação de tabelas, funções e 
 - [x] Criação de triggers para validação automática (`INSERT`, `UPDATE`)
 - [x] Inclusão de campos de auditoria (`criado_por`, `criado_em`, etc.)
 - [x] Criar funções para inserção manual de dados (procedures)
-- [x] Criar funções de atualização e exclusão (UPDATE/DELETE seguras) 
-    - [x] Impedir deletes diretos, permitindo apenas softs delets (taca trigger akakak)
+- [x] Criar funções de atualização e exclusão (UPDATE/DELETE seguras)
+- [x] Impedir deletes diretos, permitindo apenas softs delets (taca trigger akakak)
 - [x] Criar views para relatórios e simplificação de consultas
+- [x] Criar usuários e roles com permissões restritas
+- [x] Criar função para alocar treinador automaticamente na matricula
+- [x] Criar função para alocar treino automaticamente na matricula
+- [x] Criar função para impedir treino com equipamento não equivalente com a idade
 
 ### A Fazer
 
-- [ ] Criar usuários e roles com permissões restritas
 - [ ] Inserir dados de exemplo para testes
 - [ ] Script de criação completo e automatizado (`init.sql`)
 - [ ] Adicionar documentação SQL inline nos arquivos
