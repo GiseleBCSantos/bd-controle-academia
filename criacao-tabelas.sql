@@ -50,6 +50,7 @@ CREATE TABLE aluno (
 DROP TABLE IF EXISTS funcionario CASCADE;
 CREATE TABLE funcionario (
   id_func SERIAL PRIMARY KEY,
+  cpf varchar(11) not null,
   nome VARCHAR(100) NOT NULL,
   telefone VARCHAR(50),
   email VARCHAR(50),
