@@ -3,6 +3,14 @@
 create or replace function func_valida_metodo_pag()
 returns trigger as $$
 begin 
+    
+if exists (
+        select 1 from metodo_pagamento
+        where nome = new.nome
+    ) then
+        raise exception 'Já existe um método de pagamento com este nome';
+    end if;
+
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
@@ -32,7 +40,13 @@ execute procedure func_valida_metodo_pag();
 
 create or replace function func_valida_plano()
 returns trigger as $$
-begin 
+begin
+if exists (
+        select 1 from plano
+        where nome = new.nome
+    ) then
+        raise exception 'Já existe um plano com este nome';
+    end if;
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
@@ -118,6 +132,14 @@ execute procedure func_valida_aluno();
 
 create or replace function func_valida_funcionario()
 returns trigger as $$
+
+if exists (
+        select 1 from funcionario 
+        where cpf = new.cpf 
+    ) then
+        raise exception 'O CPF informado já está em uso por outro funcionario';
+    end if;
+
 begin 
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
@@ -158,6 +180,12 @@ execute procedure func_valida_funcionario();
 create or replace function func_valida_equipamento()
 returns trigger as $$
 begin 
+if exists (
+        select 1 from equipamento
+        where nome = new.nome
+    ) then
+        raise exception 'Já existe um equipamento com este nome';
+    end if;
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
@@ -190,6 +218,12 @@ execute procedure func_valida_equipamento();
 create or replace function func_valida_treino()
 returns trigger as $$
 begin 
+if exists (
+        select 1 from treino
+        where nome = new.nome
+    ) then
+        raise exception 'Já existe um treino com este nome';
+    end if;
 if trim(new.descricao) = '' THEN
     raise exception 'O campo "descricao" não pode estar vazio';
 end if;
