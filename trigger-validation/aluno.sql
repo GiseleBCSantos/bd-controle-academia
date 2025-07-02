@@ -6,7 +6,6 @@ begin
 if exists (
         select 1 from aluno 
         where cpf = new.cpf 
-        and (tg_op = 'insert' or id <> old.id)
     ) then
         raise exception 'O CPF informado já está em uso por outro aluno';
     end if;
