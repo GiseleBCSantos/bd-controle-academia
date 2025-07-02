@@ -2,6 +2,15 @@
 create or replace function func_valida_aluno()
 returns trigger as $$
 begin 
+
+if exists (
+        select 1 from aluno 
+        where cpf = new.cpf 
+        and (tg_op = 'insert' or id <> old.id)
+    ) then
+        raise exception 'O CPF informado já está em uso por outro aluno';
+    end if;
+    
 if new.nome is null or trim(new.nome) = '' then
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
