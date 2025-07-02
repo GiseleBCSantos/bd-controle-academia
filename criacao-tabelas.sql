@@ -36,7 +36,7 @@ CREATE TABLE aluno (
   email VARCHAR(50),
   dt_nasc DATE NOT NULL,
   genero CHAR NOT NULL CHECK (genero IN ('M', 'F', 'O')),
-  dt_cadastro DATE NOT NULL,
+  dt_cadastro DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   endereco VARCHAR(100),
   deleted BOOLEAN NOT NULL DEFAULT FALSE,
   criado_por VARCHAR(50) NOT NULL DEFAULT current_user,
