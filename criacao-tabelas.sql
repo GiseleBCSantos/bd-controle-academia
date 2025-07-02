@@ -31,6 +31,7 @@ CREATE TABLE plano (
 DROP TABLE IF EXISTS aluno CASCADE;
 CREATE TABLE aluno (
   id_aluno SERIAL PRIMARY KEY,
+  cpf varchar(11) not null,
   nome VARCHAR(100) NOT NULL,
   telefone VARCHAR(50),
   email VARCHAR(50),
