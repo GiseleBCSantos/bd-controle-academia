@@ -132,7 +132,7 @@ execute procedure func_valida_aluno();
 
 create or replace function func_valida_funcionario()
 returns trigger as $$
-
+begin 
 if exists (
         select 1 from funcionario 
         where cpf = new.cpf 
@@ -140,7 +140,6 @@ if exists (
         raise exception 'O CPF informado já está em uso por outro funcionario';
     end if;
 
-begin 
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
