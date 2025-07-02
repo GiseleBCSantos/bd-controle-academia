@@ -3,6 +3,14 @@ create or replace function func_valida_aluno()
 returns trigger as $$
 begin 
 
+if new.cpf is null or trim(new.cpf) = '' then
+    raise exception 'O campo "CPF" não pode estar vazio';
+end if;
+
+if length(trim(new.cpf)) <> 11 then
+    raise exception 'O CPF deve conter exatamente 11 dígitos';
+end if;
+        
 if exists (
         select 1 from aluno 
         where cpf = new.cpf 
