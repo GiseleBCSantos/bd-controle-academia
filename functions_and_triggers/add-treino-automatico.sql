@@ -6,9 +6,9 @@ declare
   colunas text := 'dt_inicio, observacao, id_func, id_aluno, criado_por, criado_em';
   valores text;
 begin
-  select id_treino into treino_id 
+  select id_trei into treino_id 
   from treino
-  where id_treino = 1
+  where id_trei = 1
   limit 1;
 
   if treino_id is NULL then
