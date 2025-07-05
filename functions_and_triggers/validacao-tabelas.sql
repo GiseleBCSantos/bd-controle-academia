@@ -146,6 +146,9 @@ end if;
 if new.dt_nasc is NULL THEN
     raise EXCEPTION 'O campo "data de nascimento" não pode estar vazio';
 end if;
+if age(current_date, new.dt_nasc).years < 10 then
+    raise exception 'O funcionário deve ter pelo menos 14 anos de idade';
+end if;
 if new.dt_admissao is NULL THEN
     raise EXCEPTION 'O campo "data de admissao" não pode estar vazio';
 end if;
