@@ -22,7 +22,7 @@ BEGIN
     END LOOP;
     
     IF equipamento_inadequado THEN
-        RAISE EXCEPTION 'Aluno não possui idade suficiente para algum equipamento do treino.';
+        RAISE NOTICE 'Aluno não possui idade suficiente para algum equipamento do treino. Treino deve ser criado manualmente após a matrícula.';
     END IF;
 
     RETURN NEW;
