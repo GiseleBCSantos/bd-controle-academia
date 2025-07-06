@@ -215,59 +215,102 @@ CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, 
 CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''17171717171'', ''Sara Lima'', ''11980170017'', ''sara.lima@email.com'', ''2001-03-29'', ''F'', ''Rua Azul, 18''');
 CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''18181818181'', ''Thiago Vieira'', ''11980180018'', ''thiago.vieira@email.com'', ''1998-07-04'', ''M'', ''Av Mar, 44''');
 CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',
-  '''19191919191'', ''Vanessa Souza'', ''11980190019'', ''vanessa.souza@email.com'', ''2000-10-13'', ''F'', ''Rua Jardim, 27''');
+  '''19191919192'', ''Vanessa Souza'', ''11980190019'', ''vanessa.souza@email.com'', ''2013-10-13'', ''F'', ''Rua Jardim, 27''');
+
+
+-- Aluno 1: Plano Premium (id 3), pagamento com Pix (id 3), atendente Bruno (id 2)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '1, 3, 3, 2, ''ativo'', 299.90');
+
+-- Aluno 2: Plano Básico (id 1), pagamento com Dinheiro (id 5), atendente Ana (id 1)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '2, 1, 5, 1, ''ativo'', 99.90');
+
+-- Aluno 4: Plano Intermediário (id 2), pagamento com Cartão de Crédito (id 1), atendente Carla (id 3)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '4, 2, 1, 3, ''ativo'', 149.90');
+
+-- Aluno 6: Plano Básico (id 1), pagamento com Cartão de Débito (id 2), atendente Bruno (id 2)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '6, 1, 2, 2, ''ativo'', 99.90');
+
+-- Aluno 7: Plano Premium (id 3), pagamento com Boleto (id 4), atendente Ana (id 1)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '7, 3, 4, 1, ''ativo'', 299.90');
+
+-- Aluno 8: Plano Intermediário (id 2), pagamento com Pix (id 3), atendente Carla (id 3)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '8, 2, 3, 3, ''ativo'', 149.90');
+
+-- Aluno 9: Plano Básico (id 1), pagamento com Dinheiro (id 5), atendente Ana (id 1)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '9, 1, 5, 1, ''ativo'', 99.90');
+
+-- Aluno 10: Plano Premium (id 3), pagamento com Cartão de Crédito (id 1), atendente Bruno (id 2)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '10, 3, 1, 2, ''ativo'', 299.90');
+
+-- Aluno 11: Plano Intermediário (id 2), pagamento com Cartão de Débito (id 2), atendente Carla (id 3)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '11, 2, 2, 3, ''ativo'', 149.90');
+
+-- Aluno 12: Plano Básico (id 1), pagamento com Boleto (id 4), atendente Ana (id 1)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '12, 1, 4, 1, ''ativo'', 99.90');
+
+-- Aluno 13: Plano Premium (id 3), pagamento com Pix (id 3), atendente Bruno (id 2)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '13, 3, 3, 2, ''ativo'', 299.90');
+
+-- Aluno 14: Plano Intermediário (id 2), pagamento com Dinheiro (id 5), atendente Carla (id 3)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '14, 2, 5, 3, ''ativo'', 149.90');
+
+-- Aluno 15: Plano Básico (id 1), pagamento com Cartão de Crédito (id 1), atendente Ana (id 1)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '15, 1, 1, 1, ''ativo'', 99.90');
+
+-- Aluno 16: Plano Premium (id 3), pagamento com Cartão de Débito (id 2), atendente Bruno (id 2)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '16, 3, 2, 2, ''ativo'', 299.90');
+
+-- Aluno 17: Plano Intermediário (id 2), pagamento com Boleto (id 4), atendente Carla (id 3)
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '17, 2, 4, 3, ''ativo'', 149.90');
+
+
+CALL inserir_dinamico('aluno', 'cpf, nome, telefone, email, dt_nasc, genero, endereco', '''20202020202'', ''Letícia Ribeiro'', ''11980200020'', ''leticia.ribeiro@email.com'', ''2012-04-10'', ''F'', ''Rua da Juventude, 50''');
+
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '19, 1, 3, 1, ''ativo'', 99.90');
 
 
 
 
+-- Cenário 1: Carlos Souza (id_aluno = 2) completou o período inicial.
+-- Atualizamos seu treino do padrão (id 1) para o 'Treino Iniciante - 1 Mês' (id 2).
+CALL atualizar_dinamico(
+    'treino_aluno',                                                              -- Tabela
+    'id_trei = 2, observacao = ''Progressão para o treino de 1 Mês.''',          -- Colunas a serem atualizadas
+    'id_aluno = 2'                                                               -- Condição
+);
 
 
+-- Cenário 2: A aluna de 12 anos, Letícia Ribeiro (id_aluno = 21), recebe seu primeiro treino.
+-- Seu 'id_trei' estava NULO. Agora, um instrutor avaliou e atribuiu o treino de 1 Mês (id 2).
+CALL atualizar_dinamico(
+    'treino_aluno',
+    'id_trei = 2, observacao = ''Primeiro treino (Iniciante - 1 Mês) atribuído manualmente.''',
+    'id_aluno = 19'
+);
 
 
-SELECT * FROM metodo_pagamento;
-SELECT * FROM plano;
-SELECT * FROM atendente;
-SELECT * FROM funcionario order by id_func;
-SELECT * FROM instrutor;
-SELECT * FROM aluno;
-SELECT * FROM matricula;
-SELECT * FROM equipamento; --ITEM
-SELECT * FROM treino;
-SELECT * FROM item_treino;
-SELECT * FROM treino_aluno;
+-- Cenário 3: Fernanda Lima (id_aluno = 5) já está mais avançada.
+-- Atualizamos o treino dela para o 'Treino Iniciante - 3 Meses' (id 3).
+CALL atualizar_dinamico(
+    'treino_aluno',
+    'id_trei = 3, observacao = ''Atualizado para o treino de 3 Meses.''',
+    'id_aluno = 5'
+);
 
 
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '2, 2, 3, 1, ''ativo'', 120.00, CURRENT_DATE');
+-- Cenário 4: Rafael Gomes (id_aluno = 16) mostrou grande evolução.
+-- Ele pula para o treino mais avançado, 'Treino - 6 Meses' (id 4).
+CALL atualizar_dinamico(
+    'treino_aluno',
+    'id_trei = 4, observacao = ''Progressão para treino avançado de 6 Meses.''',
+    'id_aluno = 16'
+);
 
 
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '3, 2, 3, 1, ''ativo'', 120.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '5, 2, 3, 1, ''ativo'', 120.00, CURRENT_DATE');
-
--- Aluno 6 a 10: plano 3 meses, pagamento Cartão de Crédito
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '6, 3, 1, 1, ''ativo'', 330.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '7, 3, 1, 1, ''ativo'', 330.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '8, 3, 1, 1, ''ativo'', 330.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '9, 3, 1, 1, ''ativo'', 330.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '10, 3, 1, 1, ''ativo'', 330.00, CURRENT_DATE');
-
--- Aluno 11 a 15: plano 6 meses, pagamento Boleto Bancário
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '11, 4, 4, 1, ''ativo'', 600.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '12, 4, 4, 1, ''ativo'', 600.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '13, 4, 4, 1, ''ativo'', 600.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '14, 4, 4, 1, ''ativo'', 600.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '15, 4, 4, 1, ''ativo'', 600.00, CURRENT_DATE');
-
--- Aluno 16 a 20: plano matrícula (inicial), pagamento em Dinheiro
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '16, 1, 5, 1, ''ativo'', 90.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '17, 1, 5, 1, ''ativo'', 90.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '18, 1, 5, 1, ''ativo'', 90.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '19, 1, 5, 1, ''ativo'', 90.00, CURRENT_DATE');
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_atendente, status, valor_pag, dt_matricula', '20, 1, 5, 1, ''ativo'', 90.00, CURRENT_DATE');
-
-
-
-
-SELECT * FROM funcionario;
-SELECT * FROM instrutor;
-
-
+-- Cenário 5: O outro aluno de 12 anos, Ricardo Nogueira (id_aluno = 22), também recebe seu primeiro treino.
+-- Atribuímos o mesmo treino inicial que Letícia, o de 1 Mês (id 2).
+CALL atualizar_dinamico(
+    'treino_aluno',
+    'id_trei = 2, observacao = ''Primeiro treino (Iniciante - 1 Mês) atribuído manualmente.''',
+    'id_aluno = 18'
+);

@@ -1,24 +1,37 @@
 CREATE OR REPLACE FUNCTION aloca_treino_instrut_func()
 RETURNS trigger AS $$
 DECLARE
-  treino_id INT;
   instrutor_id INT;
+  treino_id_alocar INT; -- Usaremos NULL se o treino não puder ser alocado
+  observacao_texto TEXT;
   idade_aluno INT;
   idade_minima INT;
-  bloqueado BOOLEAN := FALSE;
+  pode_alocar_treino BOOLEAN := TRUE;
   colunas TEXT := 'dt_inicio, observacao, id_trei, id_func, id_aluno, criado_por, criado_em';
   valores TEXT;
 BEGIN
-  SELECT id_trei INTO treino_id
-  FROM treino
-  WHERE id_trei = 1
+  -- PASSO 1: Encontrar um instrutor disponível. Isso deve acontecer sempre.
+  SELECT i.id_func INTO instrutor_id
+  FROM instrutor i
+  LEFT JOIN (
+    SELECT id_func, COUNT(*) AS total_alunos
+    FROM treino_aluno
+    WHERE deleted = FALSE
+    GROUP BY id_func
+  ) ta ON i.id_func = ta.id_func
+  WHERE i.deleted = FALSE
+    AND i.tipo = 'I'
+    AND COALESCE(ta.total_alunos, 0) < i.qntd_alunos
+  ORDER BY COALESCE(ta.total_alunos, 0) ASC
   LIMIT 1;
 
-  IF treino_id IS NULL THEN
-    RAISE NOTICE 'Treino inicial não encontrado!';
-    RETURN NEW;
+  -- Se não houver instrutor, não podemos prosseguir.
+  IF instrutor_id IS NULL THEN
+    RAISE NOTICE 'Nenhum instrutor disponível no momento. A matrícula foi criada, mas o aluno precisa ser associado a um instrutor manualmente.';
+    RETURN NEW; -- Interrompe a função, mas a matrícula é criada.
   END IF;
 
+  -- PASSO 2: Verificar a idade do aluno para o treino padrão (id_trei = 1).
   SELECT EXTRACT(YEAR FROM AGE(CURRENT_DATE, dt_nasc))
   INTO idade_aluno
   FROM aluno
@@ -28,40 +41,31 @@ BEGIN
       SELECT e.idade_min
       FROM item_treino it
       JOIN equipamento e ON it.id_equip = e.id_equip
-      WHERE it.id_trei = treino_id
+      WHERE it.id_trei = 1 -- Verificando especificamente o treino padrão
   LOOP
     IF idade_aluno < idade_minima THEN
-      bloqueado := TRUE;
-      EXIT;
+      pode_alocar_treino := FALSE;
+      EXIT; -- Encontrou um equipamento inadequado, pode parar de verificar.
     END IF;
   END LOOP;
 
-  IF bloqueado THEN
-    RAISE NOTICE 'Aluno não tem idade suficiente para os equipamentos do treino padrão. Nenhum treino foi alocado.';
-    RETURN NEW;
+  -- PASSO 3: Preparar os dados para a inserção com base na verificação de idade.
+  IF pode_alocar_treino THEN
+    -- Aluno tem idade, aloca o treino padrão.
+    treino_id_alocar := 1;
+    observacao_texto := 'Treino padrão atribuído automaticamente ao aluno na matrícula.';
+  ELSE
+    -- Aluno NÃO tem idade, não aloca treino.
+    treino_id_alocar := NULL;
+    observacao_texto := 'Aluno não possui idade para o treino padrão. Atribuir treino manualmente.';
+    RAISE NOTICE '%', observacao_texto;
   END IF;
 
-  SELECT f.id_func INTO instrutor_id
-  FROM funcionario f
-  JOIN instrutor i ON f.id_func = i.id_func
-  LEFT JOIN (
-    SELECT id_func, COUNT(*) AS total_alunos
-    FROM treino_aluno
-    GROUP BY id_func
-  ) ta ON f.id_func = ta.id_func
-  WHERE f.deleted = FALSE
-    AND COALESCE(ta.total_alunos, 0) < i.qntd_alunos
-  ORDER BY COALESCE(ta.total_alunos, 0) ASC
-  LIMIT 1;
-
-  IF instrutor_id IS NULL THEN
-    RAISE NOTICE 'Nenhum instrutor disponível no momento.';
-    RETURN NEW;
-  END IF;
-
+  -- PASSO 4: Inserir o registro em 'treino_aluno'.
+  -- Note que 'instrutor_id' sempre terá um valor aqui.
   valores := quote_literal(CURRENT_DATE) || ', '
-          || quote_literal('Treino atribuído automaticamente ao aluno na matrícula.') || ', '
-          || treino_id || ', '
+          || quote_literal(observacao_texto) || ', '
+          || COALESCE(treino_id_alocar::text, 'NULL') || ', ' -- Converte o ID para texto ou usa 'NULL'
           || instrutor_id || ', '
           || NEW.id_aluno || ', '
           || quote_literal(CURRENT_USER) || ', '
@@ -525,17 +529,117 @@ FOR EACH ROW EXECUTE FUNCTION verificar_idade_treino_aluno();
 
 
 
-ALTER TABLE matricula DISABLE TRIGGER aloca_treino_instrut;
-
-
 CREATE or replace TRIGGER aloca_treino_instrut
 BEFORE INSERT ON matricula
 FOR EACH ROW EXECUTE FUNCTION aloca_treino_instrut_func();
 
-select * from atendente a 
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE OR REPLACE FUNCTION func_propagar_para_funcionario()
+RETURNS TRIGGER AS $$
+DECLARE
+  novo_id_func INT;
+BEGIN
+  -- 1. Insere os dados comuns (herdados) na tabela PAI 'funcionario'.
+  --    A cláusula RETURNING captura o 'id_func' que foi gerado pelo SERIAL.
+  INSERT INTO funcionario (
+    cpf, nome, telefone, email, endereco, dt_nasc,
+    dt_admissao, turno, carga_horaria, salario, tipo, deleted,
+    criado_por, criado_em
+  )
+  VALUES (
+    NEW.cpf, NEW.nome, NEW.telefone, NEW.email, NEW.endereco, NEW.dt_nasc,
+    NEW.dt_admissao, NEW.turno, NEW.carga_horaria, NEW.salario, NEW.tipo, NEW.deleted,
+    NEW.criado_por, NEW.criado_em
+  )
+  RETURNING id_func INTO novo_id_func;
+
+  -- 2. Atualiza o registro que está PRESTES a ser inserido na tabela FILHA (instrutor ou atendente)
+  --    com o ID que acabamos de obter da tabela PAI.
+  NEW.id_func := novo_id_func;
+
+  -- 3. Retorna o registro modificado (agora com o id_func correto) para que a inserção
+  --    na tabela filha possa ser concluída com sucesso.
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+-- Trigger para a tabela INSTRUTOR
+CREATE or replace TRIGGER trg_insere_funcionario_para_instrutor
+BEFORE INSERT ON instrutor
+FOR EACH ROW
+EXECUTE FUNCTION func_propagar_para_funcionario();
+
+-- Trigger para a tabela ATENDENTE
+CREATE or replace TRIGGER trg_insere_funcionario_para_atendente
+BEFORE INSERT ON atendente
+FOR EACH ROW
+EXECUTE FUNCTION func_propagar_para_funcionario();
+
+
+-- Criação de uma procedure para inserir dados dinamicamente em uma tabela
+CREATE OR REPLACE PROCEDURE inserir_dinamico(
+    p_tabela TEXT,
+    p_colunas TEXT,
+    p_valores TEXT
+    )
+    LANGUAGE plpgsql
+    AS $$
+    DECLARE
+        sql_comando TEXT;
+    BEGIN
+        sql_comando := format('INSERT INTO %I (%s) VALUES (%s)', p_tabela, p_colunas, p_valores);
+        EXECUTE sql_comando;
+    END;
+    $$;
+
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE atualizar_dinamico(
+    p_tabela TEXT,
+    p_set TEXT,       -- ex: 'nome = ''João'', email = ''joao@email.com'''
+    p_where TEXT       -- ex: 'id = 5'
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    sql_comando TEXT;
+BEGIN
+    sql_comando := format(
+        'UPDATE %I SET %s WHERE %s',
+        p_tabela, p_set, p_where
+    );
+
+    EXECUTE sql_comando;
+END;
+$$;

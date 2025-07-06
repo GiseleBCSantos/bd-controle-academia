@@ -1,4 +1,4 @@
--- Metodo de pagamento
+--- Metodo de pagamento
 DROP TABLE IF EXISTS metodo_pagamento CASCADE;
 CREATE TABLE metodo_pagamento (
   id_met_pag SERIAL PRIMARY KEY,
@@ -83,6 +83,9 @@ CREATE TABLE atendente (
   deleted BOOLEAN NOT NULL DEFAULT FALSE
 ) INHERITS (funcionario);
 
+ALTER TABLE instrutor ALTER COLUMN id_func DROP DEFAULT;
+ALTER TABLE atendente ALTER COLUMN id_func DROP DEFAULT;
+
 -- Equipamento
 DROP TABLE IF EXISTS equipamento CASCADE;
 CREATE TABLE equipamento (
@@ -135,7 +138,7 @@ CREATE TABLE treino_aluno (
     id_trei_alu SERIAL PRIMARY KEY,
     dt_inicio DATE NOT NULL,
     observacao VARCHAR(200),
-    id_instrut INT NOT NULL,
+    id_func INT NOT NULL,
     id_aluno INT NOT NULL,
     id_trei INT,
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
@@ -143,7 +146,7 @@ CREATE TABLE treino_aluno (
     criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     atualizado_por VARCHAR(50),
     atualizado_em TIMESTAMP,
-    FOREIGN KEY (id_instrut) REFERENCES funcionario(id_func),  -- Referencia funcionario
+    FOREIGN KEY (id_func) REFERENCES funcionario(id_func), 
     FOREIGN KEY (id_aluno) REFERENCES aluno(id_aluno),
     FOREIGN KEY (id_trei) REFERENCES treino(id_trei)
 );
