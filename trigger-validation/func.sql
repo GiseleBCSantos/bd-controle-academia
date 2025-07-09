@@ -14,7 +14,7 @@ if exists (
         select 1 from funcionario 
         where cpf = new.cpf 
     ) then
-        raise exception 'O CPF informado já está em uso por outro aluno';
+        raise exception 'O CPF informado já está em uso por outro funcionario';
     end if;
 
 if trim(new.nome) = '' THEN
