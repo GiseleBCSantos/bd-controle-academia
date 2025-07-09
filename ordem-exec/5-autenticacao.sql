@@ -12,6 +12,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON treino TO instrutor;
 GRANT SELECT, INSERT, UPDATE, DELETE ON item_treino TO instrutor;
 GRANT SELECT, INSERT, UPDATE, DELETE ON treino_aluno TO instrutor;
 GRANT SELECT ON aluno TO instrutor;
+GRANT SELECT ON equipamento TO instrutor;
 GRANT USAGE, SELECT ON SEQUENCE treino_id_trei_seq TO instrutor;
 GRANT USAGE, SELECT ON SEQUENCE item_treino_id_item_treino_seq TO instrutor;
 GRANT USAGE, SELECT ON SEQUENCE treino_aluno_id_trei_alu_seq TO instrutor;
