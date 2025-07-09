@@ -184,10 +184,10 @@ create or replace function func_valida_metodo_pag()
 returns trigger as $$
 begin 
     
-if exists (
+if exists  (
         select 1 from metodo_pagamento
         where nome = new.nome
-    ) then
+    ) and tg_op = 'update' then
         raise exception 'Já existe um método de pagamento com este nome';
     end if;
 
@@ -195,7 +195,7 @@ if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
 
-if tg_op = 'update' and new.id_met_pa <> old.id_met_pa then
+if tg_op = 'update' and new.id_met_pag <> old.id_met_pag then
     raise exception 'Não é permitido alterar o campo "id" do método de pagamento';
 end if;
 
@@ -229,7 +229,7 @@ begin
 if exists (
         select 1 from plano
         where nome = new.nome
-    ) then
+    ) and tg_op = 'insert' then
         raise exception 'Já existe um plano com este nome';
     end if;
 if trim(new.nome) = '' THEN
@@ -286,7 +286,7 @@ end if;
 if exists (
         select 1 from aluno 
         where cpf = new.cpf 
-    ) then
+    ) and tg_op = 'insert' then
         raise exception 'O CPF informado já está em uso por outro aluno';
     end if;
     
@@ -370,7 +370,7 @@ end if;
 if exists (
         select 1 from funcionario 
         where cpf = new.cpf 
-    ) then
+    ) and tg_op = 'insert' then
         raise exception 'O CPF informado já está em uso por outro aluno';
     end if;
 
@@ -416,7 +416,7 @@ begin
 if exists (
         select 1 from equipamento
         where nome = new.nome
-    ) then
+    ) and tg_op = 'insert' then
         raise exception 'Já existe um equipamento com este nome';
     end if;
 if trim(new.nome) = '' THEN
@@ -459,7 +459,7 @@ begin
 if exists (
         select 1 from treino
         where descricao = new.descricao
-    ) then
+    ) and tg_op = 'insert' then
         raise exception 'Já existe um treino com este nome';
     end if;
 if trim(new.descricao) = '' THEN
@@ -664,7 +664,31 @@ DECLARE
     sql_comando TEXT;
 BEGIN
     sql_comando := format(
-        'UPDATE %I SET %s WHERE %s',
+        'UPDATE %I SET %s, atualizado_em = CURRENT_TIMESTAMP,
+        atualizado_por = CURRENT_USER  WHERE %s',
+        p_tabela, p_set, p_where
+    );
+
+    EXECUTE sql_comando;
+END;
+$$;
+
+
+
+CREATE OR REPLACE PROCEDURE delete_dinamico(
+    p_tabela TEXT,
+    p_where TEXT       -- ex: 'id = 5'
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    sql_comando TEXT;
+BEGIN
+    sql_comando := format(
+        'UPDATE %I SET DELETE = true,
+        atualizado_em = CURRENT_TIMESTAMP,
+        atualizado_por = CURRENT_USER
+        WHERE %s',
         p_tabela, p_set, p_where
     );
 
