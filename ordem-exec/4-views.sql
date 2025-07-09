@@ -51,16 +51,19 @@ CREATE OR REPLACE VIEW vw_meus_alunos_instrutor AS
 SELECT
     ta.id_func AS id_instrutor,
     a.id_aluno,
+    i.nome as nome_instrutor,
     a.nome AS nome_aluno,
     a.telefone AS contato_aluno,
     t.descricao AS treino_atual,
     ta.observacao AS observacoes_treino
 FROM treino_aluno ta
 JOIN aluno a ON ta.id_aluno = a.id_aluno
+join instrutor i on i.id_func = ta.id_func
 LEFT JOIN treino t ON ta.id_trei = t.id_trei
 WHERE a.deleted = FALSE AND ta.deleted = FALSE;
 
-SELECT * FROM vw_meus_alunos_instrutor WHERE id_instrutor = 9
+SELECT * FROM vw_meus_alunos_instrutor WHERE id_instrutor = 9;
+select * from vw_meus_alunos_instrutor where nome_instrutor ilike '%Isabela Teixeira%';
 
 
 CREATE OR REPLACE VIEW vw_disponibilidade_instrutores AS
