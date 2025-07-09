@@ -194,6 +194,11 @@ if exists (
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
+
+if tg_op = 'update' and new.id_met_pa <> old.id_met_pa then
+    raise exception 'Não é permitido alterar o campo "id" do método de pagamento';
+end if;
+
 if trim(new.descricao) = '' THEN
     raise EXCEPTION 'O campo "descrição" não pode estar vazio';
 end if;
@@ -230,6 +235,11 @@ if exists (
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
+
+if tg_op = 'update' and new.id_pla <> old.id_pla then
+    raise exception 'Não é permitido alterar o campo "id" do método do plano';
+end if;
+
 if trim(new.descricao) = '' THEN
     raise EXCEPTION 'O campo "descrição" não pode estar vazio';
 end if;
@@ -260,6 +270,10 @@ execute procedure func_valida_plano();
 create or replace function func_valida_aluno()
 returns trigger as $$
 begin 
+
+if tg_op = 'update' and new.id_aluno <> old.id_aluno then
+    raise exception 'Não é permitido alterar o campo "id" do aluno';
+end if;
 
 if new.cpf is null or trim(new.cpf) = '' then
     raise exception 'O campo "CPF" não pode estar vazio';
@@ -345,6 +359,10 @@ if new.cpf is null or trim(new.cpf) = '' then
     raise exception 'O campo "CPF" não pode estar vazio';
 end if;
 
+if tg_op = 'update' and new.id_func <> old.id_func then
+    raise exception 'Não é permitido alterar o campo "id" do funcionário';
+end if;
+
 if length(trim(new.cpf)) <> 11 then
     raise exception 'O CPF deve conter exatamente 11 dígitos';
 end if;
@@ -404,6 +422,11 @@ if exists (
 if trim(new.nome) = '' THEN
     raise exception 'O campo "nome" não pode estar vazio';
 end if;
+
+if tg_op = 'update' and new.id_equip <> old.id_equip then
+    raise exception 'Não é permitido alterar o campo "id" do equipamento';
+end if;
+
 if trim(new.descricao) = '' THEN
     raise EXCEPTION 'O campo "descricao" não pode estar vazio';
 end if;
@@ -442,6 +465,11 @@ if exists (
 if trim(new.descricao) = '' THEN
     raise exception 'O campo "descricao" não pode estar vazio';
 end if;
+
+if tg_op = 'update' and new.id_treino <> old.id_treino then
+    raise exception 'Não é permitido alterar o campo "id" do treino';
+end if;
+
 if trim(new.objetivo) = '' THEN
     raise EXCEPTION 'O campo "objetivo" não pode estar vazio';
 end if;
