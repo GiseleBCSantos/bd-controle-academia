@@ -300,6 +300,12 @@ if extract(year from age(current_date, new.dt_nasc)) > 130 then
     raise exception 'O aluno deve ter no maximo 130 anos de idade';
 end if;
 
+if new.telefone is not null and trim(new.telefone) <> '' then
+    if not (new.telefone ~ '^[0-9\-\(\) +]*$') then
+        raise exception 'O campo "telefone" deve conter apenas números, parênteses (), hífen -, espaço e +';
+    end if;
+end if;
+
 if not (new.genero in ('M', 'F', 'O')) then
     raise exception 'O campo "genero" deve ser M, F ou O';
 end if;
