@@ -136,7 +136,7 @@ CREATE TABLE item_treino (
 DROP TABLE IF EXISTS treino_aluno CASCADE;
 CREATE TABLE treino_aluno (
     id_trei_alu SERIAL PRIMARY KEY,
-    dt_inicio DATE NOT NULL,
+    dt_inicio DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     observacao VARCHAR(200),
     id_func INT NOT NULL,
     id_aluno INT NOT NULL,

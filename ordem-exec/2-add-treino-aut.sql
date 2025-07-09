@@ -27,8 +27,8 @@ BEGIN
 
   -- Se não houver instrutor, não podemos prosseguir.
   IF instrutor_id IS NULL THEN
-    RAISE NOTICE 'Nenhum instrutor disponível no momento. A matrícula foi criada, mas o aluno precisa ser associado a um instrutor manualmente.';
-    RETURN NEW; -- Interrompe a função, mas a matrícula é criada.
+    RAISE NOTICE 'Nenhum instrutor disponível no momento.';
+    RETURN NEW; -- Interrompe a função.
   END IF;
 
   -- PASSO 2: Verificar a idade do aluno para o treino padrão (id_trei = 1).
@@ -571,8 +571,6 @@ RETURNS TRIGGER AS $$
 DECLARE
   novo_id_func INT;
 BEGIN
-  -- 1. Insere os dados comuns (herdados) na tabela PAI 'funcionario'.
-  --    A cláusula RETURNING captura o 'id_func' que foi gerado pelo SERIAL.
   INSERT INTO funcionario (
     cpf, nome, telefone, email, endereco, dt_nasc,
     dt_admissao, turno, carga_horaria, salario, tipo, deleted,
@@ -585,12 +583,8 @@ BEGIN
   )
   RETURNING id_func INTO novo_id_func;
 
-  -- 2. Atualiza o registro que está PRESTES a ser inserido na tabela FILHA (instrutor ou atendente)
-  --    com o ID que acabamos de obter da tabela PAI.
   NEW.id_func := novo_id_func;
 
-  -- 3. Retorna o registro modificado (agora com o id_func correto) para que a inserção
-  --    na tabela filha possa ser concluída com sucesso.
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

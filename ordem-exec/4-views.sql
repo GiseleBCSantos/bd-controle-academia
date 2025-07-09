@@ -36,7 +36,7 @@ JOIN aluno a ON ta.id_aluno = a.id_aluno
 JOIN item_treino it ON ta.id_trei = it.id_trei
 JOIN equipamento e ON it.id_equip = e.id_equip
 JOIN treino t ON ta.id_trei = t.id_trei
-JOIN funcionario f ON ta.id_func = f.id_func
+JOIN instrutor f ON ta.id_func = f.id_func
 WHERE ta.deleted = FALSE AND it.deleted = FALSE;
 
 
@@ -99,7 +99,7 @@ SELECT
 FROM aluno a
 LEFT JOIN matricula m ON a.id_aluno = m.id_aluno
 LEFT JOIN plano p ON m.id_plano = p.id_pla
-LEFT JOIN funcionario atd on m.id_func = atd.id_func
+LEFT JOIN atendente atd on m.id_func = atd.id_func
 WHERE a.deleted = FALSE;
 
 SELECT * FROM vw_perfil_aluno_atendimento WHERE nome_aluno ILIKE '%souza%'
@@ -121,7 +121,7 @@ SELECT * FROM vw_faturamento_mensal
 
 CREATE OR REPLACE VIEW vw_folha_pagamento AS
 SELECT
-    f.id_func,
+    distinct f.id_func,
     f.nome,
     f.cpf,
     CASE
@@ -168,7 +168,7 @@ LEFT JOIN plano p ON m.id_plano = p.id_pla
 LEFT JOIN metodo_pagamento mp ON m.id_met_pag = mp.id_met_pag
 LEFT JOIN treino_aluno ta ON a.id_aluno = ta.id_aluno
 LEFT JOIN treino t ON ta.id_trei = t.id_trei
-LEFT JOIN funcionario f ON ta.id_func = f.id_func
+LEFT JOIN instrutor f ON ta.id_func = f.id_func
 WHERE a.deleted = FALSE;
 
 SELECT * FROM vw_snapshot_completo_aluno;

@@ -194,9 +194,9 @@ CALL inserir_dinamico('item_treino', 'series, repeticoes, carga, id_trei, id_equ
 
 
 
-CALL inserir_dinamico(
-  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''11111111101'', ''Ana Silva'', ''11980010001'', ''ana.silva@email.com'', ''2001-02-15'', ''F'', ''Rua das Flores, 10''');
-CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''22222222202'', ''Carlos Souza'', ''11980020002'', ''carlos.souza@email.com'', ''1999-06-20'', ''M'', ''Av Brasil, 150''');
+  CALL inserir_dinamico(
+    'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''11111111101'', ''Ana Silva'', ''11980010001'', ''ana.silva@email.com'', ''2001-02-15'', ''F'', ''Rua das Flores, 10''');
+  CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''22222222202'', ''Carlos Souza'', ''11980020002'', ''carlos.souza@email.com'', ''1999-06-20'', ''M'', ''Av Brasil, 150''');
 
 CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''33333333303'', ''Beatriz Costa'', ''11980030003'', ''beatriz.costa@email.com'', ''2000-09-10'', ''F'', ''Rua das Palmeiras, 75''');
 CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, endereco',  '''44444444404'', ''Diego Pereira'', ''11980040004'', ''diego.pereira@email.com'', ''2002-01-30'', ''M'', ''Rua do Sol, 45''');
@@ -219,7 +219,7 @@ CALL inserir_dinamico(  'aluno',  'cpf, nome, telefone, email, dt_nasc, genero, 
 
 
 -- Aluno 1: Plano Premium (id 3), pagamento com Pix (id 3), atendente Bruno (id 2)
-CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '1, 3, 3, 2, ''ativo'', 299.90');
+CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag, dt_matricula', '1, 3, 3, 2, ''ativo'', 299.90, ''2025-05-01''');
 
 -- Aluno 2: Plano Básico (id 1), pagamento com Dinheiro (id 5), atendente Ana (id 1)
 CALL inserir_dinamico('matricula', 'id_aluno, id_plano, id_met_pag, id_func, status, valor_pag', '2, 1, 5, 1, ''ativo'', 99.90');
