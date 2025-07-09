@@ -24,6 +24,7 @@ SELECT * FROM vw_meu_perfil_aluno WHERE id_aluno = 19
 CREATE OR REPLACE VIEW vw_meu_treino_atual AS
 SELECT
     ta.id_aluno,
+    a.nome AS nome,
     t.descricao AS nome_do_treino,
     f.nome AS nome_instrutor,
     e.nome AS nome_exercicio_equipamento,
@@ -31,6 +32,7 @@ SELECT
     it.repeticoes,
     it.carga
 FROM treino_aluno ta
+JOIN aluno a ON ta.id_aluno = a.id_aluno
 JOIN item_treino it ON ta.id_trei = it.id_trei
 JOIN equipamento e ON it.id_equip = e.id_equip
 JOIN treino t ON ta.id_trei = t.id_trei
